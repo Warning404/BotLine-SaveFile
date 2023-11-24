@@ -38,13 +38,13 @@ async function sendToDiscord(messageId, meType, mType, channelToken, cType = '')
   try {
     // ใช้ Axios เรียก Line API
     const response = await axios.get(url, { headers, responseType: 'arraybuffer' });
-
+const fileBlob = Buffer.from(response.data, "binary");
     // ส่ง Blob file ไปยัง Discord พร้อมกับข้อความที่ไม่ว่างเปล่า
     const discordPayload = {
-      content: "Your non-empty message here",
+      content: "Your non-empty message here2",
       files: [
         {
-          attachment: response.data,
+          attachment: fileBlob,
           name: `${messageId}${mType}`,
           options: {
             contentType: meType,
