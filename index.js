@@ -31,11 +31,7 @@ async function sendToDiscord(
   cType = ""
 ) {
 
-  const stream = client.getMessageContent(messageId);
-stream.on('data', (chunk) => {
-  console.log(chunk);
 
-});
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
   const headers = {
     Authorization: `Bearer ${channelToken}`,
