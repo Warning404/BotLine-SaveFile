@@ -23,7 +23,7 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 });
 
 const client = new line.Client(config);
-const axios = require("axios");
+
 
 async function sendToDiscord(
   messageId,
