@@ -30,8 +30,6 @@ async function sendToDiscord(
   channelToken,
   cType = ""
 ) {
-
-
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
   const headers = {
     Authorization: `Bearer ${channelToken}`,
@@ -47,8 +45,6 @@ async function sendToDiscord(
       headers,
       responseType: "arraybuffer",
     });
-    
-    const fileBlob = Buffer.from(response.data, "binary");
 
     // Send the Blob file to Discord along with a non-empty message
     const discordPayload = {
@@ -79,7 +75,6 @@ async function sendToDiscord(
     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
   }
 }
-
 
 function handleEvent(event) {
   var messageType = event.message.type;
