@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@line/bot-sdk": "^8.0.2",
     "axios": "^1.6.2",
     "fastify": "^4.24.3",
     "fs": "^0.0.1-security"
@@ -12,5 +13,6 @@
   },
   "author": "",
   "license": "ISC",
+  "keywords": [],
   "description": ""
 }
