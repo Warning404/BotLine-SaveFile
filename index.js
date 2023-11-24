@@ -29,7 +29,7 @@ function handleEvent(event) {
   } else if (event.message.type === "file") {
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: event.message.type,
+      text: event.message.fileName,
     });
   }
   return Promise.resolve(null);
