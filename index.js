@@ -1,6 +1,8 @@
 const express = require("express");
 const line = require("@line/bot-sdk");
-
+const axios = require("axios");
+const channelToken =
+  "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
 const config = {
   channelAccessToken:
     "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=",
@@ -19,8 +21,61 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 });
 
 const client = new line.Client(config);
+async function sendToDiscord(
+  messageId,
+  meType,
+  mType,
+  channelToken,
+  cType = ""
+) {
+  const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
+  const headers = {
+    Authorization: `Bearer ${channelToken}`,
+  };
 
+  if (cType !== "") {
+    messageId = "";
+  }
+
+  try {
+    // ใช้ Axios สำหรับการเรียก API Line
+    const response = await axios.get(url, {
+      headers,
+      responseType: "arraybuffer",
+    });
+    const fileBlob = Buffer.from(response.data, "binary");
+
+    // ส่งไฟล์ Blob ไปยัง Discord
+    const discordPayload = {
+      file: {
+        value: fileBlob,
+        options: {
+          filename: `${messageId}${mType}`,
+          contentType: meType,
+        },
+      },
+    };
+
+    const discordResponse = await axios.post(discordWebhookUrl, discordPayload);
+
+    if (
+      discordResponse.data.attachments &&
+      discordResponse.data.attachments[0] &&
+      discordResponse.data.attachments[0].url
+    ) {
+      return discordResponse.data.attachments[0].url;
+    } else {
+      return "ไม่สามารถบันทึกไฟล์ได้";
+    }
+  } catch (error) {
+    console.error("Error sending to Discord:", error.message);
+    return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
+  }
+}
 function handleEvent(event) {
+  var messageType = event.message.type;
+  var messageId = event.message.id;
+  var messageText = event.message.text;
   if (event.type === "message" && event.message.type === "text") {
     return client.replyMessage(event.replyToken, {
       type: "text",
@@ -102,6 +157,11 @@ function handleEvent(event) {
       var mimetype = "application/ld+json";
     } else {
       var mimetype = "undefined";
+    }
+
+    if(mimetype !== "undefined"){
+   
+             var x= sendToDiscord(messageId, mimetype, fileN+'.'+fileType, channelToken,'D');
     }
 
     
