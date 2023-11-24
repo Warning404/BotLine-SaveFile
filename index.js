@@ -40,22 +40,22 @@ async function sendToDiscord(
   }
 
   try {
-    // ใช้ Axios สำหรับการเรียก API Line
+    // Use Axios to call the Line API
     const response = await axios.get(url, {
       headers,
       responseType: "arraybuffer",
     });
     const fileBlob = Buffer.from(response.data, "binary");
 
-    // ส่งไฟล์ Blob ไปยัง Discord
+    // Send the Blob file to Discord along with a non-empty message
     const discordPayload = {
-      file: {
-        value: fileBlob,
-        options: {
-          filename: `${messageId}${mType}`,
-          contentType: meType,
+      content: "Your non-empty message here", // Add your non-empty message content here
+      files: [
+        {
+          attachment: fileBlob,
+          name: `${messageId}${mType}`,
         },
-      },
+      ],
     };
 
     const discordResponse = await axios.post(discordWebhookUrl, discordPayload);
@@ -76,6 +76,8 @@ async function sendToDiscord(
     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
   }
 }
+
+
 function handleEvent(event) {
   var messageType = event.message.type;
   var messageId = event.message.id;
