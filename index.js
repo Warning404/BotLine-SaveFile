@@ -22,7 +22,7 @@ fastify.post("/webhook", async (request, reply) => {
   // Handle Line Bot events
   const events = body.events;
   for (const event of events) {
-    if (event.type === "message") {
+    if (event.type == "message") {
       // Handle different types of messages (text, image, etc.)
       // Example: Reply to a text message
       const message = { type: "text", text: "Hello, world!" };
