@@ -2,8 +2,10 @@
   "dependencies": {
     "@line/bot-sdk": "^8.0.2",
     "axios": "^1.6.2",
+    "express": "^4.18.2",
     "fastify": "^4.24.3",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "linebot": "^1.6.1"
   },
   "name": "bbot",
   "version": "1.0.0",

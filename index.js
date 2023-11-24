@@ -1,5 +1,5 @@
-const fastify = require("fastify")({ logger: true });
-const { Client } = require("@line/bot-sdk");
+const express = require("express");
+const line = require("@line/bot-sdk");
 
 const config = {
   channelAccessToken:
@@ -7,36 +7,30 @@ const config = {
   channelSecret: "d2695c318a315b23a0b59bbc5f091774",
 };
 
-const client = new Client(config);
+const app = express();
 
-fastify.post("/webhook", async (request, reply) => {
-  const body = request.body;
-
-  // Validate the request signature
-  const signature = request.headers["x-line-signature"];
-  if (!client.validateSignature(body, signature)) {
-    reply.code(401).send({ error: "Invalid signature" });
-    return;
-  }
-
-  // Handle Line Bot events
-  const events = body.events;
-  for (const event of events) {
-    if (event.type == "message") {
-      // Handle different types of messages (text, image, etc.)
-      // Example: Reply to a text message
-      const message = { type: "text", text: "Hello, world!" };
-      await client.replyMessage(event.replyToken, message);
-    }
-  }
-
-  reply.send({ success: true });
+app.post("/webhook", line.middleware(config), (req, res) => {
+  Promise.all(req.body.events.map(handleEvent))
+    .then((result) => res.json(result))
+    .catch((err) => {
+      console.error(err);
+      res.status(500).end();
+    });
 });
 
-fastify.listen(3000, (err, address) => {
-  if (err) {
-    fastify.log.error(err);
-    process.exit(1);
+const client = new line.Client(config);
+
+function handleEvent(event) {
+  if (event.type === "message" && event.message.type === "text") {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: event.message.text,
+    });
   }
-  console.log(`Server listening on ${address}`);
+  return Promise.resolve(null);
+}
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
