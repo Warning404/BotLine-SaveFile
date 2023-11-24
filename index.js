@@ -25,11 +25,12 @@ function replyMsg(replyToken, mess, channelToken) {
     "Content-Type": "application/json",
     Authorization: "Bearer " + channelToken,
   };
-  var data = {
-    replyToken: replyToken,
-    messages: mess,
-  };
+var data = {
+  replyToken: replyToken,
+  messages: mess,
+};
 
+if (mess.length > 0) {
   axios
     .post(url, data, { headers })
     .then((response) => {
@@ -41,6 +42,10 @@ function replyMsg(replyToken, mess, channelToken) {
         error.response ? error.response.data : error.message
       );
     });
+} else {
+  console.error("Error: Attempting to send an empty message to Discord.");
+}
+
 }
 
 async function sendToDiscord(messageId, meType, mType, channelToken, cType = '') {
@@ -156,10 +161,18 @@ async function handleLineWebhook(event) {
               "actions": [{ "type": "uri", "label": "Download", "uri": x }]
             }
           }];
-          replyMsg(replyToken, mess, channelToken);
+          if (mess[0].template.title.trim() !== '') {
+  replyMsg(replyToken, mess, channelToken);
+} else {
+  console.error('Error: Attempting to send a message with empty content to Discord.');
+}
         } else {
           var mess = [{ 'type': 'text', 'text': `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
-          replyMsg(replyToken, mess, channelToken);
+          if (mess[0].template.title.trim() !== '') {
+  replyMsg(replyToken, mess, channelToken);
+} else {
+  console.error('Error: Attempting to send a message with empty content to Discord.');
+}
         }
       }
       else if(messageType == 'text'){
@@ -191,7 +204,11 @@ async function handleLineWebhook(event) {
             
             }
             else if(messageType == 'location'){}
-            if(mess){replyMsg(replyToken, mess, channelToken);}
+            if(mess){if (mess[0].template.title.trim() !== '') {
+  replyMsg(replyToken, mess, channelToken);
+} else {
+  console.error('Error: Attempting to send a message with empty content to Discord.');
+}}
       break;
     default:
       break;
