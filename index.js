@@ -1,9 +1,31 @@
 var axios = require('axios');
 var fs = require('fs');
+const fastify = require("fastify")({ logger: true });
+const PORT = process.env.PORT || 3000;
 
 var channelToken = "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
 var discordWebhookUrl = "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
 
+fastify.post("/webhook", async (request, reply) => {
+  try {
+    const event = request.body; // LINE webhook event data
+    await handleLineWebhook(event);
+    reply.code(200).send({ success: true });
+    await main();
+  } catch (error) {
+    console.error(error);
+    reply.code(500).send({ success: false, error: "Internal Server Error" });
+  }
+});
+
+async function main() {
+  // Example usage
+  const event = {
+    // Replace with your LINE webhook event data
+  };
+
+  await handleLineWebhook(event);
+}
 function replyMsg(replyToken, mess, channelToken) {
   var url = 'https://api.line.me/v2/bot/message/reply';
   var headers = {
@@ -180,13 +202,10 @@ async function handleLineWebhook(event) {
   }
 }
 
-async function main() {
-  // Example usage
-  var event = {
-    // Replace with your LINE webhook event data
-  };
-
-  await handleLineWebhook(event);
-}
-
-main();
+fastify.listen(PORT, "0.0.0.0", (err, address) => {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+  console.log(`Server is running on ${address}`);
+});
