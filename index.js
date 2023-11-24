@@ -20,22 +20,26 @@ fastify.post("/webhook", async (request, reply) => {
 
 
 function replyMsg(replyToken, mess, channelToken) {
-  var url = 'https://api.line.me/v2/bot/message/reply';
+  var url = "https://api.line.me/v2/bot/message/reply";
   var headers = {
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': 'Bearer ' + channelToken,
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + channelToken,
   };
   var data = {
-    'replyToken': replyToken,
-    'messages': mess
+    replyToken: replyToken,
+    messages: mess,
   };
 
-  axios.post(url, data, { headers })
-    .then(response => {
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
       console.log(response.data);
     })
-    .catch(error => {
-      console.error(error);
+    .catch((error) => {
+      console.error(
+        "Error in replyMsg:",
+        error.response ? error.response.data : error.message
+      );
     });
 }
 
@@ -79,7 +83,6 @@ async function sendToDiscord(messageId, meType, mType, channelToken, cType = '')
 async function handleLineWebhook(event) {
   var value = event; // Replace with your LINE webhook event data
   var events = value.events;
-  console.log(value);
   var event = events[0];
   var type = event.type;
   var replyToken = event.replyToken;
