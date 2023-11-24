@@ -21,13 +21,18 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 const client = new line.Client(config);
 
 function handleEvent(event) {
-  
+  if (event.type === "message" && event.message.type === "text") {
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: event.message.type,
+      text: event.message.text,
     });
-  
-  
+  } else if (event.type === "file" ) {
+    return client.replyMessage(event.replyToken, {
+      type: "text",
+      text: eevent.type,
+    });
+  }
+  return Promise.resolve(null);
 }
 
 const port = process.env.PORT || 3000;
