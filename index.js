@@ -161,18 +161,34 @@ async function handleLineWebhook(event) {
               "actions": [{ "type": "uri", "label": "Download", "uri": x }]
             }
           }];
-          if (mess[0].template.title.trim() !== '') {
+          // ตัวอย่างข้อความที่มีเนื้อหา
+var mess = [{
+  "type": "text",
+  "text": "Hello, World!"
+}];
+
+// ตรวจสอบว่า mess มีข้อมูลหรือไม่
+if (mess.length > 0) {
   replyMsg(replyToken, mess, channelToken);
 } else {
-  console.error('Error: Attempting to send a message with empty content to Discord.');
+  console.error('Error: Attempting to send an empty message to Discord.');
 }
+
         } else {
           var mess = [{ 'type': 'text', 'text': `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
-          if (mess[0].template.title.trim() !== '') {
+          // ตัวอย่างข้อความที่มีเนื้อหา
+var mess = [{
+  "type": "text",
+  "text": "Hello, World!"
+}];
+
+// ตรวจสอบว่า mess มีข้อมูลหรือไม่
+if (mess.length > 0) {
   replyMsg(replyToken, mess, channelToken);
 } else {
-  console.error('Error: Attempting to send a message with empty content to Discord.');
+  console.error('Error: Attempting to send an empty message to Discord.');
 }
+
         }
       }
       else if(messageType == 'text'){
@@ -204,11 +220,19 @@ async function handleLineWebhook(event) {
             
             }
             else if(messageType == 'location'){}
-            if(mess){if (mess[0].template.title.trim() !== '') {
+            if(mess){// ตัวอย่างข้อความที่มีเนื้อหา
+var mess = [{
+  "type": "text",
+  "text": "Hello, World!"
+}];
+
+// ตรวจสอบว่า mess มีข้อมูลหรือไม่
+if (mess.length > 0) {
   replyMsg(replyToken, mess, channelToken);
 } else {
-  console.error('Error: Attempting to send a message with empty content to Discord.');
-}}
+  console.error('Error: Attempting to send an empty message to Discord.');
+}
+}
       break;
     default:
       break;
