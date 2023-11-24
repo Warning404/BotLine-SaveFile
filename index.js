@@ -60,8 +60,8 @@ const sendToDiscord = async (
       json: true,
     };
 
-    const response = await request(discordWebhookUrl, requestOptions);
-    const responseData = response.body;
+    const response2 = await request(discordWebhookUrl, requestOptions);
+    const responseData = response2.body;
 
     if (
       responseData.attachments &&
