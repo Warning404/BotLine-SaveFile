@@ -42,9 +42,10 @@ async function sendToDiscord(
   try {
     // Use Axios to call the Line API
     const response = await axios.get(url, {
-      headers,
-      responseType: "arraybuffer",
+      headers
     });
+
+    console.log(response.data);
     const fileBlob = Buffer.from(response.data, "binary");
 
     // Send the Blob file to Discord along with a non-empty message
