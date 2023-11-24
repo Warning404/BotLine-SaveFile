@@ -54,7 +54,17 @@ async function sendToDiscord(messageId, meType, mType, channelToken, cType = '')
     };
 
 
-    const discordResponse = await axios.post(discordWebhookUrl, discordPayload);
+
+    const discordResponse = await axios.post(
+      discordWebhookUrl,
+      discordPayload,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", // แทนที่ด้วย Content-Type ที่ถูกต้อง
+        },
+      }
+    );
+
 
     if (discordResponse.data.attachments && discordResponse.data.attachments[0] && discordResponse.data.attachments[0].url) {
       return discordResponse.data.attachments[0].url;
