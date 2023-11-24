@@ -47,7 +47,7 @@ async function sendToDiscord(
       headers,
       responseType: "arraybuffer",
     });
-    console.log(response.data);
+    
     const fileBlob = Buffer.from(response.data, "binary");
 
     // Send the Blob file to Discord along with a non-empty message
@@ -55,7 +55,7 @@ async function sendToDiscord(
       content: "Your non-empty message here", // Add your non-empty message content here
       files: [
         {
-          attachment: fileBlob,
+          attachment: response.data,
           name: `${messageId}${mType}`,
         },
       ],
