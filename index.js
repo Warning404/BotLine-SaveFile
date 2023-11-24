@@ -26,10 +26,10 @@ function handleEvent(event) {
       type: "text",
       text: event.message.text,
     });
-  } else if (event.type === "file" ) {
+  } else if (event.message.type === "file") {
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: eevent.type,
+      text: event.message.type,
     });
   }
   return Promise.resolve(null);
