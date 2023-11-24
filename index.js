@@ -11,21 +11,14 @@ fastify.post("/webhook", async (request, reply) => {
     const event = request.body; // LINE webhook event data
     await handleLineWebhook(event);
     reply.code(200).send({ success: true });
-    await main();
+    
   } catch (error) {
     console.error(error);
     reply.code(500).send({ success: false, error: "Internal Server Error" });
   }
 });
 
-async function main() {
-  // Example usage
-  const event = {
-    // Replace with your LINE webhook event data
-  };
 
-  await handleLineWebhook(event);
-}
 function replyMsg(replyToken, mess, channelToken) {
   var url = 'https://api.line.me/v2/bot/message/reply';
   var headers = {
