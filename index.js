@@ -23,6 +23,8 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 });
 
 const client = new line.Client(config);
+const axios = require("axios");
+
 async function sendToDiscord(
   messageId,
   meType,
@@ -40,15 +42,15 @@ async function sendToDiscord(
   }
 
   try {
-    // Use Axios to call the Line API
+    // ใช้ Axios เรียก Line API
     const response = await axios.get(url, {
       headers,
       responseType: "arraybuffer",
     });
 
-    // Send the Blob file to Discord along with a non-empty message
+    // ส่ง Blob file ไปยัง Discord พร้อมกับข้อความที่ไม่ว่างเปล่า
     const discordPayload = {
-      content: "Your non-empty message here", // Add your non-empty message content here
+      content: "ข้อความที่ไม่ว่างเปล่าของคุณที่นี่", // เพิ่มเนื้อหาข้อความที่ไม่ว่างเปล่าของคุณที่นี่
       files: [
         {
           attachment: response.data,
@@ -69,12 +71,13 @@ async function sendToDiscord(
       return "ไม่สามารถบันทึกไฟล์ได้";
     }
   } catch (error) {
-    console.error("Error sending to Discord:", error.message);
-    console.error("Discord API response:", error.response.data);
+    console.error("เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:", error.message);
+    console.error("การตอบกลับจาก Discord API:", error.response.data);
     console.error("HTTP status code:", error.response.status);
     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
   }
 }
+
 
 function handleEvent(event) {
   var messageType = event.message.type;
