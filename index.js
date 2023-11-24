@@ -25,16 +25,18 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 const client = new line.Client(config);
 
 
-async function sendToDiscord(
+const sendToDiscord = async (
   messageId,
   meType,
   mType,
   channelToken,
   cType = ""
-) {
+) => {
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
   const headers = {
-    Authorization: `Bearer ${channelToken}`,
+    headers: {
+      Authorization: `Bearer ${channelToken}`,
+    },
   };
 
   if (cType !== "") {
@@ -42,42 +44,39 @@ async function sendToDiscord(
   }
 
   try {
-    // ใช้ Axios เรียก Line API
-    const response = await axios.get(url, {
-      headers,
-      responseType: "arraybuffer",
-    });
+    const response = await request({ url, headers });
+    const blob = response.body;
+    const fileBlob = Buffer.from(blob);
 
-    // ส่ง Blob file ไปยัง Discord พร้อมกับข้อความที่ไม่ว่างเปล่า
-    const discordPayload = {
-      content: "ข้อความที่ไม่ว่างเปล่าของคุณที่นี่", // เพิ่มเนื้อหาข้อความที่ไม่ว่างเปล่าของคุณที่นี่
-      files: [
-        {
-          attachment: response.data,
-          name: `${messageId}${mType}`,
-        },
-      ],
+    const payload = {
+      file: fileBlob,
     };
 
-    const discordResponse = await axios.post(discordWebhookUrl, discordPayload);
+    const discordWebhookUrl =
+      "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN";
+    const requestOptions = {
+      method: "post",
+      body: payload,
+      json: true,
+    };
+
+    const response = await request(discordWebhookUrl, requestOptions);
+    const responseData = response.body;
 
     if (
-      discordResponse.data.attachments &&
-      discordResponse.data.attachments[0] &&
-      discordResponse.data.attachments[0].url
+      responseData.attachments &&
+      responseData.attachments[0] &&
+      responseData.attachments[0].url
     ) {
-      return discordResponse.data.attachments[0].url;
+      return responseData.attachments[0].url;
     } else {
-      return "ไม่สามารถบันทึกไฟล์ได้";
+      return "Unable to save file";
     }
   } catch (error) {
-    console.error("เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:", error.message);
-    console.error("การตอบกลับจาก Discord API:", error.response.data);
-    console.error("HTTP status code:", error.response.status);
-    return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
+    console.error(error);
+    return "Error sending message to Discord";
   }
-}
-
+};
 
 function handleEvent(event) {
   var messageType = event.message.type;
