@@ -71,6 +71,8 @@ async function sendToDiscord(
     }
   } catch (error) {
     console.error("Error sending to Discord:", error.message);
+    console.error("Discord API response:", error.response.data);
+    console.error("HTTP status code:", error.response.status);
     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
   }
 }
