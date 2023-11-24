@@ -64,7 +64,7 @@ async function sendToDiscord(messageId, meType, mType, channelToken, cType = '')
 async function handleLineWebhook(event) {
   var value = event; // Replace with your LINE webhook event data
   var events = value.events;
-  console.log(events);
+  console.log(value);
   var event = events[0];
   var type = event.type;
   var replyToken = event.replyToken;
