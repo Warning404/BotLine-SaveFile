@@ -103,9 +103,11 @@ function handleEvent(event) {
     } else {
       var mimetype = "undefined";
     }
+
+    
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: event.message.fileName,
+      text: fileN,
     });
   }
   return Promise.resolve(null);
