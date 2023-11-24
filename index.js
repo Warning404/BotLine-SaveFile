@@ -30,6 +30,12 @@ async function sendToDiscord(
   channelToken,
   cType = ""
 ) {
+
+  const stream = client.getMessageContent('<messageId>');
+stream.on('data', (chunk) => {
+  console.log(chunk);
+
+});
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
   const headers = {
     Authorization: `Bearer ${channelToken}`,
@@ -42,9 +48,9 @@ async function sendToDiscord(
   try {
     // Use Axios to call the Line API
     const response = await axios.get(url, {
-      headers
+      headers,
+      responseType: "arraybuffer",
     });
-
     console.log(response.data);
     const fileBlob = Buffer.from(response.data, "binary");
 
