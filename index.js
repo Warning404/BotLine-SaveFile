@@ -31,7 +31,7 @@ async function sendToDiscord(
   cType = ""
 ) {
 
-  const stream = client.getMessageContent('<messageId>');
+  const stream = client.getMessageContent(messageId);
 stream.on('data', (chunk) => {
   console.log(chunk);
 
