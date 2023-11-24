@@ -95,7 +95,7 @@ async function handleLineWebhook(event) {
     case 'follow':
       break;
     case 'message':
-      var messageType = event.message.type;
+       var messageType = event.message && event.message.type ? event.message.type : null;
       var messageId = event.message.id;
       var messageText = event.message.text;
 
