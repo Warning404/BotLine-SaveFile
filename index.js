@@ -1,8 +1,6 @@
 const express = require("express");
 const line = require("@line/bot-sdk");
 const axios = require("axios");
-const Discord = require("discord.js");
-const request = require("request");
 const channelToken =
   "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
   const discordWebhookUrl =
@@ -25,60 +23,52 @@ app.post("/webhook", line.middleware(config), (req, res) => {
 });
 
 const client = new line.Client(config);
+const axios = require('axios');
 
-
-const sendToDiscord = async (
-  messageId,
-  meType,
-  mType,
-  channelToken,
-  cType = ""
-) => {
+async function sendToDiscord(messageId, meType, mType, channelToken, cType = '') {
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
   const headers = {
-    headers: {
-      Authorization: `Bearer ${channelToken}`,
-    },
+    Authorization: `Bearer ${channelToken}`,
   };
 
-  if (cType !== "") {
-    messageId = "";
+  if (cType !== '') {
+    messageId = '';
   }
 
   try {
-    const response = await request({ url, headers });
-    const blob = response.body;
-    const fileBlob = Buffer.from(blob);
+    // ใช้ Axios เรียก Line API
+    const response = await axios.get(url, { headers, responseType: 'arraybuffer' });
 
-    const payload = {
-      file: fileBlob,
+    // ส่ง Blob file ไปยัง Discord พร้อมกับข้อความที่ไม่ว่างเปล่า
+    const discordPayload = {
+      content: "Your non-empty message here",
+      files: [
+        {
+          attachment: response.data,
+          name: `${messageId}${mType}`,
+          options: {
+            contentType: meType,
+          },
+        },
+      ],
     };
 
-    const discordWebhookUrl =
-      "https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN";
-    const requestOptions = {
-      method: "post",
-      body: payload,
-      json: true,
-    };
 
-    const response2 = await request(discordWebhookUrl, requestOptions);
-    const responseData = response2.body;
+    const discordResponse = await axios.post(discordWebhookUrl, discordPayload);
 
-    if (
-      responseData.attachments &&
-      responseData.attachments[0] &&
-      responseData.attachments[0].url
-    ) {
-      return responseData.attachments[0].url;
+    if (discordResponse.data.attachments && discordResponse.data.attachments[0] && discordResponse.data.attachments[0].url) {
+      return discordResponse.data.attachments[0].url;
     } else {
-      return "Unable to save file";
+      return 'ไม่สามารถบันทึกไฟล์ได้';
     }
   } catch (error) {
-    console.error(error);
-    return "Error sending message to Discord";
+    console.error('เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:', error.message);
+    console.error('การตอบกลับจาก Discord API:', error.response.data);
+    console.error('HTTP status code:', error.response.status);
+    return 'เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord';
   }
-};
+}
+
 
 function handleEvent(event) {
   var messageType = event.message.type;
