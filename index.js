@@ -1,8 +1,6 @@
 const express = require("express");
 const line = require("@line/bot-sdk");
 const axios = require("axios");
-const fetch = require("node-fetch");
-const formData = require("form-data");
 const fs = require("fs");
 const channelToken =
   "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
@@ -61,23 +59,13 @@ if (fileStats.isFile()) {
   console.log("File does not exist:", `${messageIdParam}${mType}`);
 }  const discordWebhookUrl =
   "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
-// const form = new formData();
-// form.append("file1", fs.createReadStream(`${messageIdParam}${mType}`)); // give absolute path if possible
 
-
-// fetch(discordWebhookUrl, {
-//   method: "POST",
-//   body: form,
-//   headers: form.getHeaders(),
-// })
-//   .then((res) => console.log(res))
-//   .catch((err) => console.error(err));
 
 
 
     const payload = {
       content: "ท",
-      file: fileStats,
+      file: fs.createReadStream(`${messageIdParam}${mType}`),
     };
 
   
