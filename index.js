@@ -4,13 +4,13 @@ const axios = require("axios");
 const fs = require("fs");
 const FormData = require("form-data");
 const channelToken =
-  "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
+  "Ma49cvTxIE63C/K96QCHWGck1DdT8gwMil+IowXyAT/hDD2A0bYP4TAbUBirtM2Xz01BrSvq4EEcoR3tAm4NJqP9f+F72graa4vyqlyHlKECVd0b4DDM5R4XxBPos8O3RFjVCMaUMlcByt2LRMKx3QdB04t89/1O/w1cDnyilFU=";
     const discordWebhookUrl =
-      "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
+      "https://discord.com/api/webhooks/1177816237137481838/lDWzUW23xPDVE7KsKhjsjMd5BGqU-rBDTSN8G55u8YNei_KICxIWXj-DjAxjAJkS-6Fz";
 const config = {
   channelAccessToken:
-    "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=",
-  channelSecret: "d2695c318a315b23a0b59bbc5f091774",
+    "Ma49cvTxIE63C/K96QCHWGck1DdT8gwMil+IowXyAT/hDD2A0bYP4TAbUBirtM2Xz01BrSvq4EEcoR3tAm4NJqP9f+F72graa4vyqlyHlKECVd0b4DDM5R4XxBPos8O3RFjVCMaUMlcByt2LRMKx3QdB04t89/1O/w1cDnyilFU=",
+  channelSecret: "1dc33a631637d5de87bfbd3ee9a0f26a",
 };
 
 const app = express();
