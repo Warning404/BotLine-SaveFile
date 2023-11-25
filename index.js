@@ -52,7 +52,12 @@ async function sendToDiscord(
     const fileBlob = Buffer.from(data, "binary");
 
     fs.writeFileSync(`${messageIdParam}${mType}`, fileBlob);
-
+const fileStats = fs.statSync(`${messageIdParam}${mType}`);
+if (fileStats.isFile()) {
+  console.log("File exists:", `${messageIdParam}${mType}`);
+} else {
+  console.log("File does not exist:", `${messageIdParam}${mType}`);
+}
     const payload = {
       content: "ท",
       file: fs.createReadStream(`${messageIdParam}${mType}`),
