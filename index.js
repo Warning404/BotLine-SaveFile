@@ -180,20 +180,11 @@ async function handleEvent(event) {
 
     
    
-             var x = await  sendToDiscord(
-               messageId,
-               mimetype,
-               fileN + "." + fileType,
-               channelToken,
-               "D"
-             );
-             console.log(x);
-    
-
+    var x = await  sendToDiscord( messageId, mimetype, fileN + "." + fileType, channelToken,"D" );
     
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: 'xxx',
+      text: x,
     });
   }
   return Promise.resolve(null);
