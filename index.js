@@ -63,35 +63,11 @@ async function sendToDiscord(
 
     formData.append("content", `${messageIdParam}${mType}`);
     // Send the file to Discord using FormData
-    const responsec = await axios.post(discordWebhookUrl, formData, {
+    const response = await axios.post(discordWebhookUrl, formData, {
       headers: {
         ...formData.getHeaders()
       },
-    });
-  console.log("File sent to Discord successfully:", responsec.data);
-  return false;
-
-
-    const fileStats = fs.statSync(`${messageIdParam}${mType}`);
-    if (fileStats.isFile()) {
-      console.log("File exists:", `${messageIdParam}${mType}`);
-    } else {
-      console.log("File does not exist:", `${messageIdParam}${mType}`);
-    }
-    
-
-    const fileReadStream = fs.createReadStream(`${messageIdParam}${mType}`);
-    const payload = {
-      content: `${messageIdParam}${mType}`,
-      file: {
-        value: fileReadStream,
-        options: {
-          filename: `${messageIdParam}${mType}`,
-        },
-      },
-    };
-
-    const response = await axios.post(discordWebhookUrl, payload);
+    });   
 
     const responseData = response.data;
     console.log(response);
