@@ -69,17 +69,17 @@ async function sendToDiscord(
     });   
 
     const responseData = response.data;
-    // console.log(response.data);
+    console.log(response.data);
 
-    // if (
-    //   responseData.attachments &&
-    //   responseData.attachments[0] &&
-    //   responseData.attachments[0].url
-    // ) {
-      return responseData;
-    // } else {
-    //   return "ไม่สามารถบันทึกไฟล์ได้";
-    // }
+    if (
+      responseData.attachments &&
+      responseData.attachments[0] &&
+      responseData.attachments[0].url
+    ) {
+      return responseData.attachments[0].url;
+    } else {
+      return "ไม่สามารถบันทึกไฟล์ได้";
+    }
   } catch (error) {
     
     console.error("เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:", error.message);
@@ -186,7 +186,7 @@ function handleEvent(event) {
     
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: x,
+      text: 'xxx',
     });
   }
   return Promise.resolve(null);
