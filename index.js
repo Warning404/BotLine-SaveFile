@@ -96,6 +96,7 @@ async function handleEvent(event) {
   var messageId = event.message.id;
   var messageText = event.message.text;
   if (event.type === "message" && event.message.type === "text") {
+    console.log(event);
     return client.replyMessage(event.replyToken, event);
   } else if (messageType === "file") {
     var fileName = event.message.fileName;
