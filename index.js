@@ -161,7 +161,7 @@ async function sendToDiscord(
     );
     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
   }
-}
+} 
 
 function handleEvent(event) {
   var messageType = event.message.type;
