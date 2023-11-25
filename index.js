@@ -54,6 +54,7 @@ async function sendToDiscord(
     fs.writeFileSync(`${messageIdParam}${mType}`, fileBlob);
 
     const payload = {
+      content: "ท",
       file: fs.createReadStream(`${messageIdParam}${mType}`),
     };
 
