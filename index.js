@@ -178,9 +178,10 @@ async function handleEvent(event) {
       var mimetype = "undefined";
     }
 
-    let cdn = `ไม่ร้องรับไฟล์${fileType}`;
-   
-   if ((mimetype != "undefined")) {
+   let cdn = `ไม่ร้องรับไฟล์${fileType}`;
+   let mess;
+
+   if (mimetype !== "undefined") {
      cdn = await sendToDiscord(
        messageId,
        mimetype,
@@ -188,33 +189,31 @@ async function handleEvent(event) {
        channelToken,
        "D"
      );
-      var mess = [
-        {
-          type: "template",
-          altText: "Download Button",
-          template: {
-            type: "buttons",
-            thumbnailImageUrl:
-              "https://media.discordapp.net/attachments/1177581450514665542/1177618754667040890/folder.png",
-            imageAspectRatio: "rectangle",
-            imageSize: "cover",
-            imageBackgroundColor: "#FFFFFF",
-            title: `บันทึกไฟล์ ${fileN}.${fileType}`,
-            text: "Download the file",
-            defaultAction: { type: "uri", label: "Download", uri: cdn },
-            actions: [{ type: "uri", label: "Download", uri: cdn }],
-          },
-        },
-      ];
-   }else{
-    var mess = [{ type: "text", text: `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
 
+     mess = [
+       {
+         type: "template",
+         altText: "Download Button",
+         template: {
+           type: "buttons",
+           thumbnailImageUrl:
+             "https://media.discordapp.net/attachments/1177581450514665542/1177618754667040890/folder.png",
+           imageAspectRatio: "rectangle",
+           imageSize: "cover",
+           imageBackgroundColor: "#FFFFFF",
+           title: `บันทึกไฟล์ ${fileN}.${fileType}`,
+           text: "Download the file",
+           defaultAction: { type: "uri", label: "Download", uri: cdn },
+           actions: [{ type: "uri", label: "Download", uri: cdn }],
+         },
+       },
+     ];
+   } else {
+     mess = [{ type: "text", text: `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
    }
-    
-    return client.replyMessage(event.replyToken, {
-      type: "text",
-      text: mess,
-    });
+
+   return client.replyMessage(event.replyToken, mess);
+
   }
   return Promise.resolve(null);
 }
