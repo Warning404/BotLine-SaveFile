@@ -57,11 +57,11 @@ async function sendToDiscord(
 
     const formData = new FormData();
     formData.append("file", fs.createReadStream(`${messageIdParam}${mType}`), {
-      filename: `ชื่อเอกสาร : ${messageIdParam}${mType} , แหล่งที่มา : ${fromType}`,
+      filename: `${messageIdParam}${mType}`,
       contentType: "application/octet-stream",
     });
 
-    formData.append("content", `${messageIdParam}${mType}`);
+    formData.append("content", `ชื่อเอกสาร : ${messageIdParam}${mType} , แหล่งที่มา : ${fromType}`);
     // Send the file to Discord using FormData
     const response = await axios.post(discordWebhookUrl, formData, {
       headers: {
