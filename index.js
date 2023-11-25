@@ -33,6 +33,7 @@ async function sendToDiscord(
   meType,
   mType,
   channelToken,
+  fromType,
   cType = ""
 ) {
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
@@ -56,7 +57,7 @@ async function sendToDiscord(
 
     const formData = new FormData();
     formData.append("file", fs.createReadStream(`${messageIdParam}${mType}`), {
-      filename: `${messageIdParam}${mType}`,
+      filename: `ชื่อเอกสาร : ${messageIdParam}${mType} , แหล่งที่มา : ${fromType}`,
       contentType: "application/octet-stream",
     });
 
@@ -94,6 +95,10 @@ async function sendToDiscord(
 async function handleEvent(event) {
   var messageType = event.message.type;
   var messageId = event.message.id;
+  let sourceType = event.source.type || "";
+  let groupId = event.source.groupId || "";
+  let userId = event.source.userId || "";
+  let fromType = `type : ${sourceType} , groupId : ${groupId} , userId : ${userId} `;
   var messageText = event.message.text;
   if (event.type === "message" && event.message.type === "text") {
     console.log(event);
@@ -183,6 +188,7 @@ async function handleEvent(event) {
         mimetype,
         fileN + "." + fileType,
         channelToken,
+        fromType,
         "D"
       );
 
@@ -213,7 +219,13 @@ async function handleEvent(event) {
     console.log(event.source.groupId);
     let mType = ".jpg";
     let meType = "image/jpeg";    
-    let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
+    let cdn = await sendToDiscord(
+      messageId,
+      meType,
+      mType,
+      channelToken,
+      fromType
+    );
     let mess = [
       {
         type: "template",
@@ -236,7 +248,13 @@ async function handleEvent(event) {
 
     let mType = ".mp4";
     let meType = "video/mp4";
-    let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
+    let cdn = await sendToDiscord(
+      messageId,
+      meType,
+      mType,
+      channelToken,
+      fromType
+    );
     let mess = [
       {
         type: "template",
@@ -260,7 +278,7 @@ async function handleEvent(event) {
   } else if (messageType == "audio") {
 let mType = ".mp3";
 let meType = "audio/mpeg";
-let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
+let cdn = await sendToDiscord(messageId, meType, mType, channelToken,fromType);
 let mess = [
   {
     type: "template",
