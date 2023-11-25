@@ -125,8 +125,8 @@ async function sendToDiscord(
     }
 
     const payload = {
-      content: "ท",
-      file: await fs.createReadStream(`${messageIdParam}${mType}`),
+      content: "ท2",
+      file: fs.createReadStream(`${messageIdParam}${mType}`)
     };
 
     const discordWebhookUrl =
