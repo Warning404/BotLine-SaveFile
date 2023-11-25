@@ -69,7 +69,7 @@ async function sendToDiscord(
     });   
 
     const responseData = response.data;
-    console.log(response.data);
+  
 
     if (
       responseData.attachments &&
@@ -181,6 +181,7 @@ function handleEvent(event) {
     
    
              var x= sendToDiscord(messageId, mimetype, fileN+'.'+fileType, channelToken,'D');
+             console.log(x);
     
 
     
