@@ -1,7 +1,6 @@
 const express = require("express");
 const line = require("@line/bot-sdk");
 const axios = require("axios");
-const request = require("request");
 const fs = require("fs");
 const channelToken =
   "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
@@ -28,127 +27,78 @@ const client = new line.Client(config);
 
 
 
-// async function sendToDiscord(
-//   messageId,
-//   meType,
-//   mType,
-//   channelToken,
-//   cType = ""
-// ) {
-//   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
-//   const headers = {
-//     Authorization: `Bearer ${channelToken}`,
-//   };
-
-//   let messageIdParam = messageId;
-//   if (cType !== "") {
-//     messageIdParam = "";
-//   }
-
-//   try {
-//     const { data } = await axios.get(url, {
-//       headers,
-//       responseType: "arraybuffer",
-//     });
-//     const fileBlob = Buffer.from(data, "binary");
-
-//     fs.writeFileSync(`${messageIdParam}${mType}`, fileBlob);
-// const fileStats = fs.statSync(`${messageIdParam}${mType}`);
-// if (fileStats.isFile()) {
-//   console.log("File exists:", `${messageIdParam}${mType}`);
-// } else {
-//   console.log("File does not exist:", `${messageIdParam}${mType}`);
-// }
-
-
-//     // const payload = {
-//     //   content: "ท",
-//     //   file: fs.createReadStream(`${messageIdParam}${mType}`),
-//     // };
-
-//     // const discordWebhookUrl =
-//     //   "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
-//     // const response = await axios.post(discordWebhookUrl, payload);
-
-//     // const responseData = response.data;
-//     // console.log(response);
-
-//     // if (
-//     //   responseData.attachments &&
-//     //   responseData.attachments[0] &&
-//     //   responseData.attachments[0].url
-//     // ) {
-//     //   return responseData.attachments[0].url;
-//     // } else {
-//     //   return "ไม่สามารถบันทึกไฟล์ได้";
-//     // }
-//   } catch (error) {
-    
-//     console.error("เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:", error.message);
-//     console.error("การตอบกลับจาก Discord API:", error.response.data);
-//     console.error("HTTP status code:", error.response.status);
-//     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
-//   }
-// }
-function sendToDiscord(messageId, meType, mType, channelToken, cType = "") {
+async function sendToDiscord(
+  messageId,
+  meType,
+  mType,
+  channelToken,
+  cType = ""
+) {
   const url = `https://api-data.line.me/v2/bot/message/${messageId}/content`;
   const headers = {
     Authorization: `Bearer ${channelToken}`,
   };
 
+  let messageIdParam = messageId;
   if (cType !== "") {
-    messageId = "";
+    messageIdParam = "";
   }
 
-  const getcontent = request({
-    url,
-    headers,
-  });
+  try {
+    const { data } = await axios.get(url, {
+      headers,
+      responseType: "arraybuffer",
+    });
+    const fileBlob = Buffer.from(data, "binary");
 
-  getcontent.on("response", async (response) => {
-    if (response.statusCode === 200) {
-      const blob = await getcontent.buffer();
-      const fileBlob = Buffer.from(blob).toString("base64");
-      const payload = {
-        file: fileBlob,
-      };
-
-      const requestOptions = {
-        method: "post",
-        payload,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-
-      try {
-        const response = await request(discordWebhookUrl, requestOptions);
-        const responseData = JSON.parse(response.body);
-
-        if (
-          responseData.attachments &&
-          responseData.attachments[0] &&
-          responseData.attachments[0].url
-        ) {
-          console.log(
-            "File successfully sent to Discord:",
-            responseData.attachments[0].url
-          );
-          return responseData.attachments[0].url;
-        } else {
-          console.error("Failed to save file:", responseData);
-          return "Unable to save file";
-        }
-      } catch (error) {
-        console.error("Error sending file to Discord:", error);
-        return "Error sending file to Discord";
-      }
-    } else {
-      console.error("Error fetching file from LINE:", response.statusCode);
-      return "Error fetching file from LINE";
-    }
-  });
+    fs.writeFileSync(`${messageIdParam}${mType}`, fileBlob);
+const fileStats = fs.statSync(`${messageIdParam}${mType}`);
+if (fileStats.isFile()) {
+  console.log("File exists:", `${messageIdParam}${mType}`);
+} else {
+  console.log("File does not exist:", `${messageIdParam}${mType}`);
 }
+
+
+  var payload = {
+    file: fs.createReadStream(`${messageIdParam}${mType}`),
+  };
+  var requestOptions = {
+    method: "post",
+    payload: payload,
+    muteHttpExceptions: true,
+  };
+const { res } = await axios.get(discordWebhookUrl, requestOptions);
+    // const payload = {
+    //   content: "ท",
+    //   file: fs.createReadStream(`${messageIdParam}${mType}`),
+    // };
+
+    // const discordWebhookUrl =
+    //   "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
+    // const response = await axios.post(discordWebhookUrl, payload);
+
+    // const responseData = response.data;
+    // console.log(response);
+
+    // if (
+    //   responseData.attachments &&
+    //   responseData.attachments[0] &&
+    //   responseData.attachments[0].url
+    // ) {
+    //   return responseData.attachments[0].url;
+    // } else {
+    //   return "ไม่สามารถบันทึกไฟล์ได้";
+    // }
+  } catch (error) {
+    
+    console.error("เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:", error.message);
+    console.error("การตอบกลับจาก Discord API:", error.response.data);
+    console.error("HTTP status code:", error.response.status);
+    return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
+  }
+}
+
 
 function handleEvent(event) {
   var messageType = event.message.type;
