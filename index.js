@@ -62,6 +62,7 @@ async function sendToDiscord(
     const response = await axios.post(discordWebhookUrl, payload);
 
     const responseData = response.data;
+    console.log(response);
 
     if (
       responseData.attachments &&
