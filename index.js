@@ -211,12 +211,74 @@ async function handleEvent(event) {
   } else if (messageType == "sticker") {
   } else if (messageType == "image") {
     let mType = ".jpg";
-    let meType = "image/jpeg";
-    console.log(event);
+    let meType = "image/jpeg";    
+    let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
+    let mess = [
+      {
+        type: "template",
+        altText: "Download Button",
+        template: {
+          type: "buttons",
+          thumbnailImageUrl: cdn,
+          imageAspectRatio: "rectangle",
+          imageSize: "cover",
+          imageBackgroundColor: "#FFFFFF",
+          title: `บันทึกไฟล์ภาพเรียบร้อย`,
+          text: "Download the file",
+          defaultAction: { type: "uri", label: "Download", uri: cdn },
+          actions: [{ type: "uri", label: "Download", uri: cdn }],
+        },
+      },
+    ];
+    return client.replyMessage(event.replyToken, mess);
   } else if (messageType == "video") {
-    console.log(event);
+
+    let mType = ".mp4";
+    let meType = "video/mp4";
+    let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
+    let mess = [
+      {
+        type: "template",
+        altText: "Download Button",
+        template: {
+          type: "buttons",
+          thumbnailImageUrl:
+            "https://media.discordapp.net/attachments/1177581450514665542/1177618260263456809/youtube.png",
+          imageAspectRatio: "rectangle",
+          imageSize: "cover",
+          imageBackgroundColor: "#FFFFFF",
+          title: `บันทึกไฟล์วิดีโอเรียบร้อย`,
+          text: "Download the file",
+          defaultAction: { type: "uri", label: "Download", uri: cdn },
+          actions: [{ type: "uri", label: "Download", uri: cdn }],
+        },
+      },
+    ];
+    return client.replyMessage(event.replyToken, mess);
+   
   } else if (messageType == "audio") {
-    console.log(event);
+let mType = ".mp3";
+let meType = "audio/mpeg";
+let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
+let mess = [
+  {
+    type: "template",
+    altText: "Download Button",
+    template: {
+      type: "buttons",
+      thumbnailImageUrl:
+        "https://media.discordapp.net/attachments/1177581450514665542/1177618510097162280/music-wave.png",
+      imageAspectRatio: "rectangle",
+      imageSize: "cover",
+      imageBackgroundColor: "#FFFFFF",
+      title: `บันทึกไฟล์เสียงเรียบร้อย`,
+      text: "Download the file",
+      defaultAction: { type: "uri", label: "Download", uri: cdn },
+      actions: [{ type: "uri", label: "Download", uri: cdn }],
+    },
+  },
+];
+return client.replyMessage(event.replyToken, mess);
   } else if (messageType == "location") {
   }
   return Promise.resolve(null);
