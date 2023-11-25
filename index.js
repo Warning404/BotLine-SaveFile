@@ -61,40 +61,40 @@ if (fileStats.isFile()) {
   console.log("File does not exist:", `${messageIdParam}${mType}`);
 }  const discordWebhookUrl =
   "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
-const form = new formData();
-form.append("file1", fs.createReadStream(`${messageIdParam}${mType}`)); // give absolute path if possible
+// const form = new formData();
+// form.append("file1", fs.createReadStream(`${messageIdParam}${mType}`)); // give absolute path if possible
 
 
-fetch(discordWebhookUrl, {
-  method: "POST",
-  body: form,
-  headers: form.getHeaders(),
-})
-  .then((res) => console.log(res))
-  .catch((err) => console.error(err));
+// fetch(discordWebhookUrl, {
+//   method: "POST",
+//   body: form,
+//   headers: form.getHeaders(),
+// })
+//   .then((res) => console.log(res))
+//   .catch((err) => console.error(err));
 
 
 
-    // const payload = {
-    //   content: "ท",
-    //   file: fs.createReadStream(`${messageIdParam}${mType}`),
-    // };
+    const payload = {
+      content: "ท",
+      file: fileStats,
+    };
 
   
-    // const response = await axios.post(discordWebhookUrl, payload);
+    const response = await axios.post(discordWebhookUrl, payload);
 
-    // const responseData = response.data;
-    // console.log(response);
+    const responseData = response.data;
+    console.log(response);
 
-    // if (
-    //   responseData.attachments &&
-    //   responseData.attachments[0] &&
-    //   responseData.attachments[0].url
-    // ) {
-    //   return responseData.attachments[0].url;
-    // } else {
-    //   return "ไม่สามารถบันทึกไฟล์ได้";
-    // }
+    if (
+      responseData.attachments &&
+      responseData.attachments[0] &&
+      responseData.attachments[0].url
+    ) {
+      return responseData.attachments[0].url;
+    } else {
+      return "ไม่สามารถบันทึกไฟล์ได้";
+    }
   } catch (error) {
     
     console.error("เกิดข้อผิดพลาดในขณะส่งไปยัง Discord:", error.message);
