@@ -186,7 +186,7 @@ function handleEvent(event) {
     
     return client.replyMessage(event.replyToken, {
       type: "text",
-      text: fileN,
+      text: x,
     });
   }
   return Promise.resolve(null);
