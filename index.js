@@ -96,7 +96,7 @@ async function handleEvent(event) {
   var messageId = event.message.id;
   var messageText = event.message.text;
   if (event.type === "message" && event.message.type === "text") {
-    console.log(event);    
+    console.log(event);
   } else if (messageType === "file") {
     var fileName = event.message.fileName;
     var fileType = fileName.split(".", 2)[1];
@@ -209,6 +209,15 @@ async function handleEvent(event) {
     }
     return client.replyMessage(event.replyToken, mess);
   } else if (messageType == "sticker") {
+  } else if (messageType == "image") {
+    let mType = ".jpg";
+    let meType = "image/jpeg";
+    console.log(event);
+  } else if (messageType == "video") {
+    console.log(event);
+  } else if (messageType == "audio") {
+    console.log(event);
+  } else if (messageType == "location") {
   }
   return Promise.resolve(null);
 }
