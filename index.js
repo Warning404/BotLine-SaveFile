@@ -210,6 +210,7 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, mess);
   } else if (messageType == "sticker") {
   } else if (messageType == "image") {
+    console.log(event.source.groupId);
     let mType = ".jpg";
     let meType = "image/jpeg";    
     let cdn = await sendToDiscord(messageId, meType, mType, channelToken);
