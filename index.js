@@ -68,10 +68,9 @@ async function sendToDiscord(
       },
     });
   console.log("File sent to Discord successfully:", responsec.data);
-} catch (error) {
-  console.error("Error:", error.message);
-}
-return false;
+  return false;
+
+
     const fileStats = fs.statSync(`${messageIdParam}${mType}`);
     if (fileStats.isFile()) {
       console.log("File exists:", `${messageIdParam}${mType}`);
