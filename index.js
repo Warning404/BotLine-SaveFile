@@ -62,10 +62,15 @@ if (fileStats.isFile()) {
 
 
   const fileReadStream = fs.createReadStream(`${messageIdParam}${mType}`);
-    const payload = {
-      content: `${messageIdParam}${mType}`,
-      file: fileReadStream,
-    };
+  const payload = {
+    content: `${messageIdParam}${mType}`,
+    file: {
+      value: fileReadStream,
+      options: {
+        filename: `${messageIdParam}${mType}`,
+      },
+    },
+  };
 
   
     const response = await axios.post(discordWebhookUrl, payload);
