@@ -96,9 +96,8 @@ async function handleEvent(event) {
   var messageId = event.message.id;
   var messageText = event.message.text;
   if (event.type === "message" && event.message.type === "text") {
-       
-  } else if (event.message.type === "file") {
-
+    return client.replyMessage(event.replyToken, event);
+  } else if (messageType === "file") {
     var fileName = event.message.fileName;
     var fileType = fileName.split(".", 2)[1];
     var fileN = fileName.split(".", 2)[0];
@@ -175,41 +174,42 @@ async function handleEvent(event) {
       var mimetype = "undefined";
     }
 
-   let cdn = `ไม่ร้องรับไฟล์${fileType}`;
-   let mess;
+    let cdn = `ไม่ร้องรับไฟล์${fileType}`;
+    let mess;
 
-   if (mimetype !== "undefined") {
-     cdn = await sendToDiscord(
-       messageId,
-       mimetype,
-       fileN + "." + fileType,
-       channelToken,
-       "D"
-     );
+    if (mimetype !== "undefined") {
+      cdn = await sendToDiscord(
+        messageId,
+        mimetype,
+        fileN + "." + fileType,
+        channelToken,
+        "D"
+      );
 
-     mess = [
-       {
-         type: "template",
-         altText: "Download Button",
-         template: {
-           type: "buttons",
-           thumbnailImageUrl:
-             "https://media.discordapp.net/attachments/1177581450514665542/1177618754667040890/folder.png",
-           imageAspectRatio: "rectangle",
-           imageSize: "cover",
-           imageBackgroundColor: "#FFFFFF",
-           title: `บันทึกไฟล์ ${fileN}.${fileType}`,
-           text: "Download the file",
-           defaultAction: { type: "uri", label: "Download", uri: cdn },
-           actions: [{ type: "uri", label: "Download", uri: cdn }],
-         },
-       },
-     ];
-   } else {
-     mess = [{ type: "text", text: `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
-   }
+      mess = [
+        {
+          type: "template",
+          altText: "Download Button",
+          template: {
+            type: "buttons",
+            thumbnailImageUrl:
+              "https://media.discordapp.net/attachments/1177581450514665542/1177618754667040890/folder.png",
+            imageAspectRatio: "rectangle",
+            imageSize: "cover",
+            imageBackgroundColor: "#FFFFFF",
+            title: `บันทึกไฟล์ ${fileN}.${fileType}`,
+            text: "Download the file",
+            defaultAction: { type: "uri", label: "Download", uri: cdn },
+            actions: [{ type: "uri", label: "Download", uri: cdn }],
+          },
+        },
+      ];
+    } else {
+      mess = [{ type: "text", text: `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
+    }
+    return client.replyMessage(event.replyToken, mess);
+  } else if (messageType == "sticker") {
 
-   return client.replyMessage(event.replyToken, mess);
 
   }
   return Promise.resolve(null);
