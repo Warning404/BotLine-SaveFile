@@ -65,8 +65,7 @@ async function sendToDiscord(
     // Send the file to Discord using FormData
     const responsec = await axios.post(discordWebhookUrl, formData, {
       headers: {
-        ...formData.getHeaders(),
-        Authorization: `Bot ${yourDiscordBotToken}`, // Add your Discord bot token here
+        ...formData.getHeaders()
       },
     });
   console.log("File sent to Discord successfully:", responsec.data);
