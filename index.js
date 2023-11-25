@@ -91,7 +91,7 @@ async function sendToDiscord(
 
 
 
-function handleEvent(event) {
+async function handleEvent(event) {
   var messageType = event.message.type;
   var messageId = event.message.id;
   var messageText = event.message.text;
@@ -180,7 +180,13 @@ function handleEvent(event) {
 
     
    
-             var x= sendToDiscord(messageId, mimetype, fileN+'.'+fileType, channelToken,'D');
+             var x = await  sendToDiscord(
+               messageId,
+               mimetype,
+               fileN + "." + fileType,
+               channelToken,
+               "D"
+             );
              console.log(x);
     
 
