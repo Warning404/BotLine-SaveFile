@@ -52,27 +52,45 @@ async function sendToDiscord(
     const fileBlob = Buffer.from(data, "binary");
 
     fs.writeFileSync(`${messageIdParam}${mType}`, fileBlob);
-const fileStats = fs.statSync(`${messageIdParam}${mType}`);
-if (fileStats.isFile()) {
-  console.log("File exists:", `${messageIdParam}${mType}`);
-} else {
-  console.log("File does not exist:", `${messageIdParam}${mType}`);
-}  const discordWebhookUrl =
-  "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
+    const discordWebhookUrl =
+      "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
+    const formData = new FormData();
+    formData.append("file", fs.createReadStream(`${messageIdParam}${mType}`), {
+      filename: `${messageIdParam}${mType}`,
+    });
 
-
-  const fileReadStream = fs.createReadStream(`${messageIdParam}${mType}`);
-  const payload = {
-    content: `${messageIdParam}${mType}`,
-    file: {
-      value: fileReadStream,
-      options: {
-        filename: `${messageIdParam}${mType}`,
+    formData.append("content", `${messageIdParam}${mType}`);
+    // Send the file to Discord using FormData
+    const responsec = await axios.post(discordWebhookUrl, formData, {
+      headers: {
+        ...formData.getHeaders(),
+        Authorization: `Bot ${yourDiscordBotToken}`, // Add your Discord bot token here
       },
-    },
-  };
+    });
+  console.log("File sent to Discord successfully:", responsec.data);
+} catch (error) {
+  console.error("Error:", error.message);
+}
+return false;
+    const fileStats = fs.statSync(`${messageIdParam}${mType}`);
+    if (fileStats.isFile()) {
+      console.log("File exists:", `${messageIdParam}${mType}`);
+    } else {
+      console.log("File does not exist:", `${messageIdParam}${mType}`);
+    }
+    
 
-  
+    const fileReadStream = fs.createReadStream(`${messageIdParam}${mType}`);
+    const payload = {
+      content: `${messageIdParam}${mType}`,
+      file: {
+        value: fileReadStream,
+        options: {
+          filename: `${messageIdParam}${mType}`,
+        },
+      },
+    };
+
     const response = await axios.post(discordWebhookUrl, payload);
 
     const responseData = response.data;
