@@ -62,7 +62,7 @@ if (fileStats.isFile()) {
 }  const discordWebhookUrl =
   "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
 const form = new formData();
-form.append("file1", fs.createReadStream(`${messageIdParam}${mType}`); // give absolute path if possible
+form.append("file1", fs.createReadStream(`${messageIdParam}${mType}`)); // give absolute path if possible
 
 
 fetch(discordWebhookUrl, {
