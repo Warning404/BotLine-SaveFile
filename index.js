@@ -2,6 +2,7 @@ const express = require("express");
 const line = require("@line/bot-sdk");
 const axios = require("axios");
 const fs = require("fs");
+const FormData = require("form-data");
 const channelToken =
   "1PZT/4Z4xYMVr70h/i2WFmM5QCCLIrDVJ9coQYN8OOBudY2v+zKKfcZutl8sV2pqE0pcqGW7TANW0tnKCVtCTLe/9f8uAypz0R5kRwXrgtn287H9yx7eZvLsGlWwTg0Zug4OWskQYOSj7iVAMXU9ngdB04t89/1O/w1cDnyilFU=";
   const discordWebhookUrl =
@@ -57,6 +58,7 @@ async function sendToDiscord(
     const formData = new FormData();
     formData.append("file", fs.createReadStream(`${messageIdParam}${mType}`), {
       filename: `${messageIdParam}${mType}`,
+      contentType: "application/octet-stream",
     });
 
     formData.append("content", `${messageIdParam}${mType}`);
