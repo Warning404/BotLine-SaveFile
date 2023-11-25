@@ -101,7 +101,7 @@ async function handleEvent(event) {
   let fromType = `type : ${sourceType} , groupId : ${groupId} , userId : ${userId} `;
   var messageText = event.message.text;
   if (event.type === "message" && event.message.type === "text") {
-    console.log(event);
+    // console.log(event);
   } else if (messageType === "file") {
     var fileName = event.message.fileName;
     var fileType = fileName.split(".", 2)[1];
@@ -216,7 +216,7 @@ async function handleEvent(event) {
     return client.replyMessage(event.replyToken, mess);
   } else if (messageType == "sticker") {
   } else if (messageType == "image") {
-    console.log(event.source.groupId);
+    // console.log(event.source.groupId);
     let mType = ".jpg";
     let meType = "image/jpeg";    
     let cdn = await sendToDiscord(
