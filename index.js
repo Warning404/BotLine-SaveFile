@@ -128,31 +128,73 @@ async function sendToDiscord(
     }
 
     const formData = new FormData();
-    const readStream = fs.createReadStream(`${messageIdParam}${mType}`);
-    formData.append("file", readStream);
-    formData.append("content", "ท2");
 
-    const discordWebhookUrl =
-      "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
-
-    const discordResponse = await axios.post(discordWebhookUrl, formData, {
-      headers: {
-        ...formData.getHeaders(),
-      },
-    });
-
-    const responseData = discordResponse.data;
-    console.log(responseData);
-
-    if (
-      responseData.attachments &&
-      responseData.attachments[0] &&
-      responseData.attachments[0].url
-    ) {
-      return responseData.attachments[0].url;
-    } else {
-      return "ไม่สามารถบันทึกไฟล์ได้";
+    // Append files to the form data
+    for (let i = 0; i < filePaths.length; i++) {
+      const fileBuffer = fs.readFileSync(filePaths[i]);
+      formData.append(`file${i + 1}`, fileBuffer, {
+        filename: `file${i + 1}.png`, // Adjust the filename accordingly
+      });
     }
+
+    // Append additional data to the form data
+    
+    formData.append(
+      "payload_json",
+      JSON.stringify({
+        content: `ภาพกิจกรรม`,
+        username: `personnelId `,
+      })
+    );
+
+    try {
+      // Make a POST request to the Discord webhook URL
+      const discordWebhookUrl =
+        "https://discord.com/api/webhooks/1110252851902566521/R3GCWllfKhXySVk8wD-BIg5o0EVra061CxrK8TKbzhHslROdGm6te6YPjmQlXKkXHGS9";
+      const response = await axios.post(discordWebhookUrl, formData, {
+        headers: {
+          ...formData.getHeaders(),
+        },
+      });
+
+      console.log("Discord API response:", response.data);
+    } catch (error) {
+      console.error("Error sending files to Discord:", error.message);
+
+      if (error.response) {
+        console.error("Discord API response:", error.response.data);
+        console.error("HTTP status code:", error.response.status);
+      } else {
+        console.error("No response received from Discord API");
+      }
+    }
+
+    // const formData = new FormData();
+    // const readStream = fs.createReadStream(`${messageIdParam}${mType}`);
+    // formData.append("file", readStream);
+    // formData.append("content", "ท2");
+
+    // const discordWebhookUrl =
+    //   "https://discord.com/api/webhooks/1177581734808784967/CyKsuy3m9bcG8dQEsa2grm5Iyx6Qba8l_QP4X8_ZmH72Rynswdyln4W4fts8MMDsA4xx";
+
+    // const discordResponse = await axios.post(discordWebhookUrl, formData, {
+    //   headers: {
+    //     ...formData.getHeaders(),
+    //   },
+    // });
+
+    // const responseData = discordResponse.data;
+    // console.log(responseData);
+
+    // if (
+    //   responseData.attachments &&
+    //   responseData.attachments[0] &&
+    //   responseData.attachments[0].url
+    // ) {
+    //   return responseData.attachments[0].url;
+    // } else {
+    //   return "ไม่สามารถบันทึกไฟล์ได้";
+    // }
   } catch (error) {
     console.error("Error sending to Discord:", error.message);
 
