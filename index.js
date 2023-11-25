@@ -153,11 +153,11 @@ async function sendToDiscord(
     console.error("Error sending to Discord:", error.message);
     console.error(
       "Discord API response:",
-      error.response ? error.response.data : "N/A"
+      error.response ? error.response.data : "N/A2"
     );
     console.error(
       "HTTP status code:",
-      error.response ? error.response.status : "N/A"
+      error.response ? error.response.status : "N/A2"
     );
     return "เกิดข้อผิดพลาดในขณะที่ส่งข้อมูลไปยัง Discord";
   }
