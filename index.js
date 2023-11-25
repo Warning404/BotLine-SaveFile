@@ -68,7 +68,9 @@ if (fileStats.isFile()) {
     payload: payload,
     muteHttpExceptions: true,
   };
-const { res } = await axios.get(discordWebhookUrl, requestOptions);
+const { res } = await axios.post(discordWebhookUrl, requestOptions);
+console.log(res);
+
     // const payload = {
     //   content: "ท",
     //   file: fs.createReadStream(`${messageIdParam}${mType}`),
