@@ -203,7 +203,7 @@ async function handleEvent(event) {
             imageSize: "cover",
             imageBackgroundColor: "#FFFFFF",
             title: `บันทึกไฟล์ ${fileN}.${fileType}`,
-            text: "Download the file",
+            
             defaultAction: { type: "uri", label: "Download", uri: cdn },
             actions: [{ type: "uri", label: "Download", uri: cdn }],
           },
@@ -236,7 +236,7 @@ async function handleEvent(event) {
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
           title: `บันทึกไฟล์ภาพเรียบร้อย`,
-          text: "Download the file",
+          
           defaultAction: { type: "uri", label: "Download", uri: cdn },
           actions: [{ type: "uri", label: "Download", uri: cdn }],
         },
@@ -265,7 +265,7 @@ async function handleEvent(event) {
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
           title: `บันทึกไฟล์วิดีโอเรียบร้อย`,
-          text: "Download the file",
+          
           defaultAction: { type: "uri", label: "Download", uri: cdn },
           actions: [{ type: "uri", label: "Download", uri: cdn }],
         },
@@ -288,7 +288,7 @@ let mess = [
       imageSize: "cover",
       imageBackgroundColor: "#FFFFFF",
       title: `บันทึกไฟล์เสียงเรียบร้อย`,
-      text: "Download the file",
+      
       defaultAction: { type: "uri", label: "Download", uri: cdn },
       actions: [{ type: "uri", label: "Download", uri: cdn }],
     },
