@@ -198,8 +198,7 @@ async function handleEvent(event) {
           altText: "Download Button",
           template: {
             type: "buttons",
-            thumbnailImageUrl:
-              "https://media.discordapp.net/attachments/1177581450514665542/1177618754667040890/folder.png",
+            
             imageAspectRatio: "rectangle",
             imageSize: "cover",
             imageBackgroundColor: "#FFFFFF",
@@ -232,7 +231,7 @@ async function handleEvent(event) {
         altText: "Download Button",
         template: {
           type: "buttons",
-          thumbnailImageUrl: cdn,
+          
           imageAspectRatio: "rectangle",
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
@@ -261,8 +260,7 @@ async function handleEvent(event) {
         altText: "Download Button",
         template: {
           type: "buttons",
-          thumbnailImageUrl:
-            "https://media.discordapp.net/attachments/1177581450514665542/1177618260263456809/youtube.png",
+          
           imageAspectRatio: "rectangle",
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
@@ -285,8 +283,7 @@ let mess = [
     altText: "Download Button",
     template: {
       type: "buttons",
-      thumbnailImageUrl:
-        "https://media.discordapp.net/attachments/1177581450514665542/1177618510097162280/music-wave.png",
+     
       imageAspectRatio: "rectangle",
       imageSize: "cover",
       imageBackgroundColor: "#FFFFFF",
