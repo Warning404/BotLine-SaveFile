@@ -139,7 +139,20 @@ async function handleEvent(event) {
       raw: "application/octet-stream",
       json: "application/json",
       jsonld: "application/ld+json",
-      csv: "application/csv", 
+      csv: "application/csv",
+      webp: "image/webp",
+      pdfa: "application/pdf",
+      webm: "video/webm",
+      odt: "application/vnd.oasis.opendocument.text",
+      ods: "application/vnd.oasis.opendocument.spreadsheet",
+      odp: "application/vnd.oasis.opendocument.presentation",
+      xml: "application/xml",
+      yaml: "application/x-yaml",
+      md: "text/markdown",
+      latex: "application/x-latex",
+      epub: "application/epub+zip",
+      ico: "image/x-icon",
+      p12: "application/x-pkcs12",
     };
 
     // Get the mimetype based on the fileType
