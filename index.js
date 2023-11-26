@@ -106,78 +106,44 @@ async function handleEvent(event) {
     var fileName = event.message.fileName;
     var fileType = fileName.split(".", 2)[1];
     var fileN = fileName.split(".", 2)[0];
-    if (fileType == "pdf") {
-      var mimetype = "application/pdf";
-    } else if (fileType == "zip") {
-      var mimetype = "application/zip";
-    } else if (fileType == "rar") {
-      var mimetype = "application/vnd.rar";
-    } else if (fileType == "7z") {
-      var mimetype = "application/x-7z-compressed";
-    } else if (fileType == "doc") {
-      var mimetype = "application/msword";
-    } else if (fileType == "xls") {
-      var mimetype = "application/vnd.ms-excel";
-    } else if (fileType == "ppt") {
-      var mimetype = "application/vnd.ms-powerpoint";
-    } else if (fileType == "docx") {
-      var mimetype =
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    } else if (fileType == "xlsx") {
-      var mimetype =
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    } else if (fileType == "pptx") {
-      var mimetype =
-        "application/vnd.openxmlformats-officedocument.presentationml.presentation";
-    } else if (fileType == "mp4") {
-      var mimetype = "video/mp4";
-    } else if (fileType == "mp3") {
-      var mimetype = "audio/mpeg";
-    } else if (fileType == "png") {
-      var mimetype = "image/png";
-    } else if (fileType == "gif") {
-      var mimetype = "image/gif";
-    } else if (fileType == "jpg") {
-      var mimetype = "image/jpeg";
-    } else if (fileType == "jpeg") {
-      var mimetype = "image/jpeg";
-    } else if (fileType == "exe") {
-      var mimetype = "application/octet-stream";
-    } else if (fileType == "txt") {
-      var mimetype = "text/plain";
-    } else if (fileType == "html") {
-      var mimetype = "text/html";
-    } else if (fileType == "css") {
-      var mimetype = "text/css";
-    } else if (fileType == "js") {
-      var mimetype = "application/javascript";
-    } else if (fileType == "wav") {
-      var mimetype = "audio/wav";
-    } else if (fileType == "ogg") {
-      var mimetype = "audio/ogg";
-    } else if (fileType == "mov") {
-      var mimetype = "video/quicktime";
-    } else if (fileType == "avi") {
-      var mimetype = "video/x-msvideo";
-    } else if (fileType == "svg") {
-      var mimetype = "image/svg+xml";
-    } else if (fileType == "tar") {
-      var mimetype = "application/x-tar";
-    } else if (fileType == "php") {
-      var mimetype = "application/x-httpd-php";
-    } else if (fileType == "ts") {
-      var mimetype = "application/typescript";
-    } else if (fileType == "raw") {
-      var mimetype = "application/octet-stream";
-    } else if (fileType == "json") {
-      var mimetype = "application/json";
-    } else if (fileType == "jsonld") {
-      var mimetype = "application/ld+json";
-    } else if (fileType == "csv") {
-      var mimetype = "application/ld+json";
-    } else {
-      var mimetype = "undefined";
-    }
+    const mimeTypes = {
+      pdf: "application/pdf",
+      zip: "application/zip",
+      rar: "application/vnd.rar",
+      "7z": "application/x-7z-compressed",
+      doc: "application/msword",
+      xls: "application/vnd.ms-excel",
+      ppt: "application/vnd.ms-powerpoint",
+      docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      mp4: "video/mp4",
+      mp3: "audio/mpeg",
+      png: "image/png",
+      gif: "image/gif",
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      exe: "application/octet-stream",
+      txt: "text/plain",
+      html: "text/html",
+      css: "text/css",
+      js: "application/javascript",
+      wav: "audio/wav",
+      ogg: "audio/ogg",
+      mov: "video/quicktime",
+      avi: "video/x-msvideo",
+      svg: "image/svg+xml",
+      tar: "application/x-tar",
+      php: "application/x-httpd-php",
+      ts: "application/typescript",
+      raw: "application/octet-stream",
+      json: "application/json",
+      jsonld: "application/ld+json",
+      csv: "application/csv", 
+    };
+
+    // Get the mimetype based on the fileType
+    const mimetype = mimeTypes[fileType] || "undefined";
 
     let cdn = `ไม่ร้องรับไฟล์${fileType}`;
     let mess;
