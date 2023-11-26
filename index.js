@@ -195,7 +195,7 @@ async function handleEvent(event) {
       mess = [
         {
           type: "template",
-          altText: "Download Button",
+          altText: "บันทึกไฟล์แล้ว ♥",
           template: {
             type: "buttons",
             
@@ -228,10 +228,9 @@ async function handleEvent(event) {
     let mess = [
       {
         type: "template",
-        altText: "Download Button",
+        altText: "บันทึกไฟล์แล้ว ♥",
         template: {
-          type: "buttons",
-          
+          type: "buttons",          
           imageAspectRatio: "rectangle",
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
@@ -257,7 +256,7 @@ async function handleEvent(event) {
     let mess = [
       {
         type: "template",
-        altText: "Download Button",
+        altText: "บันทึกไฟล์แล้ว ♥",
         template: {
           type: "buttons",
           
@@ -280,7 +279,7 @@ let cdn = await sendToDiscord(messageId, meType, mType, channelToken,fromType);
 let mess = [
   {
     type: "template",
-    altText: "Download Button",
+    altText: "บันทึกไฟล์แล้ว ♥",
     template: {
       type: "buttons",
      
