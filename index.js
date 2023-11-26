@@ -195,7 +195,7 @@ async function handleEvent(event) {
       mess = [
         {
           type: "template",
-          altText: "บันทึกไฟล์แล้ว ♥",
+          altText: "✎ บันทึกไฟล์แล้ว",
           template: {
             type: "buttons",
             
@@ -228,7 +228,7 @@ async function handleEvent(event) {
     let mess = [
       {
         type: "template",
-        altText: "บันทึกไฟล์แล้ว ♥",
+        altText: "✎ บันทึกไฟล์แล้ว",
         template: {
           type: "buttons",          
           imageAspectRatio: "rectangle",
@@ -237,7 +237,7 @@ async function handleEvent(event) {
           title: `บันทึกไฟล์ภาพเรียบร้อย`,
           text: "Download the file",
           defaultAction: { type: "uri", label: "Download", uri: cdn },
-          actions: [{ type: "uri", label: "Download", uri: cdn, "color": "#008000"}],
+          actions: [{ type: "uri", label: "Download", uri: cdn }],
         },
       },
     ];
@@ -256,7 +256,7 @@ async function handleEvent(event) {
     let mess = [
       {
         type: "template",
-        altText: "บันทึกไฟล์แล้ว ♥",
+        altText: "✎ บันทึกไฟล์แล้ว",
         template: {
           type: "buttons",
           
@@ -279,7 +279,7 @@ let cdn = await sendToDiscord(messageId, meType, mType, channelToken,fromType);
 let mess = [
   {
     type: "template",
-    altText: "บันทึกไฟล์แล้ว ♥",
+    altText: "✎ บันทึกไฟล์แล้ว",
     template: {
       type: "buttons",
      
