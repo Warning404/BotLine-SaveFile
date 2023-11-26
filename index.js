@@ -235,7 +235,7 @@ async function handleEvent(event) {
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
           title: `บันทึกไฟล์ภาพเรียบร้อย`,
-          
+          text: "Download the file",
           defaultAction: { type: "uri", label: "Download", uri: cdn },
           actions: [{ type: "uri", label: "Download", uri: cdn, color: "#008000"}],
         },
