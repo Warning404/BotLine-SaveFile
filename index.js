@@ -180,14 +180,14 @@ async function handleEvent(event) {
           altText: "✎ บันทึกไฟล์แล้ว",
           template: {
             type: "buttons",
-            
+
             imageAspectRatio: "rectangle",
             imageSize: "cover",
             imageBackgroundColor: "#FFFFFF",
-            title: ``,
-            text: "",
-            defaultAction: { type: "uri", label: `Download ไฟล์ ${fileN}.${fileType}`, uri: cdn },
-            actions: [{ type: "uri", label: `Download ไฟล์ ${fileN}.${fileType}`, uri: cdn }],
+            title: `บันทึกไฟล์ ${fileN}.${fileType}`,
+            text: `บันทึกไฟล์ ${fileN}.${fileType}`,
+            defaultAction: { type: "uri", label: "Download", uri: cdn },
+            actions: [{ type: "uri", label: "Download", uri: cdn }],
           },
         },
       ];
@@ -212,12 +212,12 @@ async function handleEvent(event) {
         type: "template",
         altText: "✎ บันทึกไฟล์แล้ว",
         template: {
-          type: "buttons",          
+          type: "buttons",
           imageAspectRatio: "rectangle",
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
           title: `บันทึกไฟล์ภาพเรียบร้อย`,
-          text: "Download the file",
+          text: "บันทึกไฟล์ภาพเรียบร้อย",
           defaultAction: { type: "uri", label: "Download", uri: cdn },
           actions: [{ type: "uri", label: "Download", uri: cdn }],
         },
@@ -241,12 +241,12 @@ async function handleEvent(event) {
         altText: "✎ บันทึกไฟล์แล้ว",
         template: {
           type: "buttons",
-          
+
           imageAspectRatio: "rectangle",
           imageSize: "cover",
           imageBackgroundColor: "#FFFFFF",
           title: `บันทึกไฟล์วิดีโอเรียบร้อย`,
-          text: "Download the file",
+          text: "บันทึกไฟล์วิดีโอเรียบร้อย",
           defaultAction: { type: "uri", label: "Download", uri: cdn },
           actions: [{ type: "uri", label: "Download", uri: cdn }],
         },
@@ -264,12 +264,12 @@ let mess = [
     altText: "✎ บันทึกไฟล์แล้ว",
     template: {
       type: "buttons",
-     
+
       imageAspectRatio: "rectangle",
       imageSize: "cover",
       imageBackgroundColor: "#FFFFFF",
       title: `บันทึกไฟล์เสียงเรียบร้อย`,
-      text: "Download the file",
+      text: "บันทึกไฟล์เสียงเรียบร้อย",
       defaultAction: { type: "uri", label: "Download", uri: cdn },
       actions: [{ type: "uri", label: "Download", uri: cdn }],
     },
