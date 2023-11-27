@@ -159,7 +159,7 @@ async function handleEvent(event) {
 
     // Get the mimetype based on the fileType
     let mimetype = mimeTypesjs[fileType] || "undefined";
-    if (mimetype !== "undefined") {  mimetype = mimeTypes.lookup(fileType) || "undefined";  }
+    if (mimetype != "undefined") {  mimetype = mimeTypes.lookup(fileType) || "undefined"; console.log(mimeTypes.lookup(fileType)); }
 
     let cdn = `ไม่ร้องรับไฟล์${fileType}`;
     let mess;
