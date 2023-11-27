@@ -154,6 +154,7 @@ async function handleEvent(event) {
       epub: "application/epub+zip",
       ico: "image/x-icon",
       p12: "application/x-pkcs12",
+      drawio: "application/vnd.jgraph.drawio",
     };
 
     // Get the mimetype based on the fileType
