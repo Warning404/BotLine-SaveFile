@@ -107,7 +107,7 @@ async function handleEvent(event) {
     var fileName = event.message.fileName;
     var fileType = fileName.split(".", 2)[1];
     var fileN = fileName.split(".", 2)[0];
-    const mimeTypes = {
+    const mimeTypesjs = {
       pdf: "application/pdf",
       zip: "application/zip",
       rar: "application/vnd.rar",
@@ -158,7 +158,7 @@ async function handleEvent(event) {
     };
 
     // Get the mimetype based on the fileType
-    let mimetype = mimeTypes[fileType] || "undefined";
+    let mimetype = mimeTypesjs[fileType] || "undefined";
     if (mimetype !== "undefined") {  mimetype = mimeTypes.lookup(fileType) || "undefined";  }
 
     let cdn = `ไม่ร้องรับไฟล์${fileType}`;
