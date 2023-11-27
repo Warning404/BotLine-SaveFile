@@ -8,6 +8,7 @@
     "form-data": "^4.0.0",
     "fs": "^0.0.1-security",
     "linebot": "^1.6.1",
+    "mime-types": "^2.1.35",
     "node-fetch": "^3.3.2",
     "request": "^2.88.2"
   },

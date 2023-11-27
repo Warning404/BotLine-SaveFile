@@ -3,6 +3,7 @@ const line = require("@line/bot-sdk");
 const axios = require("axios");
 const fs = require("fs");
 const FormData = require("form-data");
+const mimeTypes = require("mime-types");
 const channelToken =
   "Ma49cvTxIE63C/K96QCHWGck1DdT8gwMil+IowXyAT/hDD2A0bYP4TAbUBirtM2Xz01BrSvq4EEcoR3tAm4NJqP9f+F72graa4vyqlyHlKECVd0b4DDM5R4XxBPos8O3RFjVCMaUMlcByt2LRMKx3QdB04t89/1O/w1cDnyilFU=";
     const discordWebhookUrl =
@@ -156,7 +157,8 @@ async function handleEvent(event) {
     };
 
     // Get the mimetype based on the fileType
-    const mimetype = mimeTypes[fileType] || "undefined";
+    let mimetype = mimeTypes[fileType] || "undefined";
+    if (mimetype !== "undefined") {  mimetype = mimeTypes.lookup(fileType) || "undefined";  }
 
     let cdn = `ไม่ร้องรับไฟล์${fileType}`;
     let mess;
