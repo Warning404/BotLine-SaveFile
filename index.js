@@ -154,12 +154,12 @@ async function handleEvent(event) {
       epub: "application/epub+zip",
       ico: "image/x-icon",
       p12: "application/x-pkcs12",
-      
+      drawio: "application/vnd.jgraph.drawio",
     };
 
     // Get the mimetype based on the fileType
     let mimetype = mimeTypesjs[fileType] || "undefined";
-    if (mimetype == "undefined") {  mimetype = mimeTypes.lookup(fileType) || "undefined"; console.log(mimeTypes.lookup(fileType)); }
+    if (mimetype == "undefined") {  mimetype = mimeTypes.lookup(fileType) || "undefined"; }
 
     let cdn = `ไม่ร้องรับไฟล์${fileType}`;
     let mess;
