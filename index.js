@@ -223,7 +223,7 @@ async function handleEvent(event) {
         },
       },
     ];
-    return client.replyMessage(event.replyToken, mess);
+    return true; //client.replyMessage(event.replyToken, mess);
   } else if (messageType == "video") {
 
     let mType = ".mp4";
@@ -252,7 +252,7 @@ async function handleEvent(event) {
         },
       },
     ];
-    return client.replyMessage(event.replyToken, mess);
+    return true; //client.replyMessage(event.replyToken, mess);
    
   } else if (messageType == "audio") {
 let mType = ".mp3";
@@ -275,7 +275,7 @@ let mess = [
     },
   },
 ];
-return client.replyMessage(event.replyToken, mess);
+return true;  //client.replyMessage(event.replyToken, mess);
   } else if (messageType == "location") {
   }
   return Promise.resolve(null);
