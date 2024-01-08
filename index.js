@@ -194,7 +194,7 @@ async function handleEvent(event) {
     } else {
       mess = [{ type: "text", text: `ไม่รองรับไฟล์ประเภทนี้${fileType}` }];
     }
-    return client.replyMessage(event.replyToken, mess);
+    return true; //client.replyMessage(event.replyToken, mess);
   } else if (messageType == "sticker") {
   } else if (messageType == "image") {
     // console.log(event.source.groupId);
